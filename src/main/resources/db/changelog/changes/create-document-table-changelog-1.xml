@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="sgadmin" id="5">
+		<createTable tableName="document">
+			<column autoIncrement="true" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="application_id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="doc_name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint
+			baseTableName="document" baseColumnNames="application_id"
+			constraintName="document_fk"
+			referencedTableName="application" referencedColumnNames="id" />
+		<rollback>
+			<dropForeignKeyConstraint
+				baseTableName="document"
+				constraintName="document_fk" />
+			<dropTable tableName="document" />
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

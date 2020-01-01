@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: liquibase-demo
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://config-server-outreach.apps.na311.openshift.opentlc.com
+      username: root
+      password: root
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+     enabled: false
+    discovery:      enabled: false
